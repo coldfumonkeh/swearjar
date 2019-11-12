@@ -38,7 +38,7 @@
     "scripts":{
         "postVersion":"package set location='coldfumonkeh/swearjar#v`package version`'",
         "onRelease":"publish",
-        "postPublish":"!git push && git push --tags"
+        "postPublish":"!git push && !git push --tags"
     },
     "shortDescription":"A CFML profanity detection and filtering component library",
     "slug":"swearjar",
