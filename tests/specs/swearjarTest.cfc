@@ -244,7 +244,7 @@ component extends="testbox.system.BaseSpec"{
 
                     it( 'should load up a new library file when calling the loadBadWords method', function(){
 
-                        variables.swearjar.loadBadWords( './config/vintage.json' );
+                        variables.swearjar.loadBadWords( expandPath( '../config/vintage.json' ) );
 
                         var result = variables.swearjar.getBadWords();
                         expect( result )
