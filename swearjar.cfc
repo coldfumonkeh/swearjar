@@ -153,15 +153,15 @@ component accessors="true" {
             for( var i = 1; i <= arrayLen( arguments.categories ); i++ ){
                 var cat = arguments.categories[ i ];
                 if( structKeyExists( categoryCount, cat ) ){
-                    categoryCount[ cat ] = categoryCount[ cat ]+1;
+                    categoryCount[ cat ] = categoryCount[ cat ] + 1;
                 } else {
                     categoryCount[ cat ] = 1;
                 }
-                if( structKeyExists( wordCount, arguments.word ) ){
-                    wordCount[ arguments.word ] = wordCount[ arguments.word ]+1;
-                } else {
-                    wordCount[ arguments.word ] = 1;
-                }
+            }
+            if( structKeyExists( wordCount, arguments.word ) ){
+                wordCount[ arguments.word ] = wordCount[ arguments.word ] + 1;
+            } else {
+                wordCount[ arguments.word ] = 1;
             }
         } );
         return {
