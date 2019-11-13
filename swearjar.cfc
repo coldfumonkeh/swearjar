@@ -1,30 +1,37 @@
+/**
+ * Name: swearjar.cfc
+ * Author: Matt Gifford (matt@monkehworks.com)
+ * Purpose: A CFML profanity detection and filtering component library
+ */
 component accessors="true" {
 
     property name="badWords" type="struct";
 
     /**
      * Constructor method
+     * 
+     * @param string libraryFilePath
      */
     public swearjar function init(
         string libraryFilePath = './config/en_US.json'
     ){
-        setBadWords( deserializeJSON( fileRead( arguments.libraryFilePath ) ) );
+        this.loadBadWords( arguments.libraryFilePath );
         return this;
     }
 
     /**
 	 * Scans `text` looking for profanity. The callback is invoked on
-	 * each instance of profanity.
+	 * each instance of the profanity.
 	 *
 	 * The signature of `callback` is:
 	 * 
-	 *    function (word, index, types) { ... }
+	 *    function (word, index, categories) { ... }
 	 * 
 	 * Where `word` is the possible profane word, `index` is the offset of the word
-	 * in the text, and `types` is a list of tags for the word.
+	 * in the text, and `categories` is a list of tags for the word.
 	 * 
 	 * @param string text
-	 * @param Closure callback
+	 * @param closure callback
 	 * @return void
 	 */
     private void function scan(
@@ -39,11 +46,11 @@ component accessors="true" {
             var word = arrMatches[ index ];
             var key  = lcase( word );
             if( structKeyExists( stuBadWords[ 'simple' ], key ) && isArray( stuBadWords[ 'simple' ][ key ] ) ){
-                if( callback( word, index, stuBadWords[ 'simple' ][ key ], 'simple' ) === false ){
+                if( callback( word, index, stuBadWords[ 'simple' ][ key ], 'simple' ) EQ false ){
                     break;
                 }
             } else if( structKeyExists( stuBadWords[ 'emoji' ], key ) && isArray( stuBadWords[ 'emoji' ][ key ] ) ){
-                if( callback( word, index, stuBadWords[ 'emoji' ][ regexString ], 'emoji' ) === false ){
+                if( callback( word, index, stuBadWords[ 'emoji' ][ regexString ], 'emoji' ) EQ false ){
                     break;
                 }
             } else {
@@ -56,7 +63,7 @@ component accessors="true" {
             var arrRegMatches = reMatchNoCase( regexString, jopinedText );
             for( var index = 1; index <= arrayLen( arrRegMatches ); index++ ){
                 var word = arrRegMatches[ index ];
-                if( callback( word, index, stuBadWords[ 'regex' ][ regexString ], 'regex' ) === false ){
+                if( callback( word, index, stuBadWords[ 'regex' ][ regexString ], 'regex' ) EQ false ){
                     break;
                 }
             }
@@ -100,7 +107,7 @@ component accessors="true" {
     }
 
     /**
-     * Get the words alongside there categories.
+     * Get the words alongside their categories.
      *
      * @param string text
      * @returns struct 
@@ -229,12 +236,12 @@ component accessors="true" {
     }
 
     /**
-     * Loads a dictionary of words to be used as filter.
+     * Loads a dictionary of words to be used as the filter.
      *
      * @param string relativePath
      * @returns void
      */
-    public void function loadBadWords( required stirng relativePath ){
+    public void function loadBadWords( required string relativePath ){
         setBadWords( deserializeJSON( fileRead( arguments.relativePath ) ) );
     }
 

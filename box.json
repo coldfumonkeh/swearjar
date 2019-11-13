@@ -5,7 +5,9 @@
     "contributors":[],
     "dependencies":{},
     "description":"A CFML profanity detection and filtering component library",
-    "devDependencies":{},
+    "devDependencies":{
+        "testbox":"^3.1.0+339"
+    },
     "documentation":"https://github.com/coldfumonkeh/swearjar",
     "homepage":"https://github.com/coldfumonkeh/swearjar",
     "ignore":[
@@ -13,7 +15,9 @@
         "test",
         "tests"
     ],
-    "installPaths":{},
+    "installPaths":{
+        "testbox":"testbox/"
+    },
     "instructions":"",
     "keywords":[
         "profanity",
