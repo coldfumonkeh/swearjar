@@ -32,6 +32,8 @@ component extends="testbox.system.BaseSpec"{
                         .toHaveKey( 'scorecard' )
                         .toHaveKey( 'words' )
                         .toHaveKey( 'censor' )
+                        .toHaveKey( 'sugarcoat' )
+                        .toHaveKey( 'unicorn' )
                         .toHaveKey( 'detailedProfane' )
                         .toHaveKey( 'addRegex' )
                         .toHaveKey( 'addSimple' )
@@ -86,6 +88,32 @@ component extends="testbox.system.BaseSpec"{
                         expect( resultTwo )
                             .toBeString()
                             .toBe( '**** you, you ******* stupid ****!' );
+
+                    } );
+
+                } );
+
+                describe( "The sugarcoat method", function(){
+
+                    it( 'should return the string with the profanity replaced (if a replacement exists)', function(){
+
+                        var resultOne = variables.swearjar.sugarcoat( 'Your life is like poor pornography' );
+                        expect( resultOne )
+                            .toBeString()
+                            .toBe( 'Your life is like poor erotic literature' );
+
+                    } );
+
+                } );
+
+                describe( "The unicorn method", function(){
+
+                    it( 'should return the string with the profanity replaced with unicorns', function(){
+
+                        var resultOne = variables.swearjar.unicorn( 'fuck you, you fucking stupid cunt!' );
+                        expect( resultOne )
+                            .toBeString()
+                            .toBe( 'unicorn you, you unicorn stupid unicorn!' );
 
                     } );
 

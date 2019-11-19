@@ -29,5 +29,13 @@
          "insult"
       ]
    },
-   "emoji":{}
+   "emoji":{},
+   "replacements":{
+      "tarnation":[
+         "heavens"
+      ],
+      "rantallion":[
+         "insufficently-endowed individual"
+      ]
+   }
  }

@@ -27,6 +27,21 @@ Replaces profanity with asterisks.
 ```js
 var clean = swearjar.censor( 'f-bomb you' ); // **** you
 ```
+
+### swearjar.sugarcoat(text)
+
+Replaces profanity with a replacement word, if one exists within the library file. If not, the word will be replaced with asterisks.
+```js
+var clean = swearjar.sugarcoat( 'Your life is like poor pornography' ); // Your life is like poor erotic literature
+```
+
+### swearjar.unicorn(text)
+
+Replaces profanity with the word unicorn.
+```js
+var clean = swearjar.unicorn( 'fuck you, you fucking stupid cunt!' ); // unicorn you, you unicorn stupid unicorn!
+```
+
 ### swearjar.words(text)
 
 Get the words alongside their categories.

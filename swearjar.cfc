@@ -46,11 +46,13 @@ component accessors="true" {
             var word = arrMatches[ index ];
             var key  = lcase( word );
             if( structKeyExists( stuBadWords[ 'simple' ], key ) && isArray( stuBadWords[ 'simple' ][ key ] ) ){
-                if( callback( word, index, stuBadWords[ 'simple' ][ key ], 'simple' ) EQ false ){
+                var replacements = ( structKeyExists( stuBadWords[ 'replacements' ], key ) ) ? stuBadWords[ 'replacements' ][ key ] : [];
+                if( callback( word, index, stuBadWords[ 'simple' ][ key ], replacements, 'simple' ) EQ false ){
                     break;
                 }
             } else if( structKeyExists( stuBadWords[ 'emoji' ], key ) && isArray( stuBadWords[ 'emoji' ][ key ] ) ){
-                if( callback( word, index, stuBadWords[ 'emoji' ][ regexString ], 'emoji' ) EQ false ){
+                var replacements = ( structKeyExists( stuBadWords[ 'replacements' ], key ) ) ? stuBadWords[ 'replacements' ][ key ] : [];
+                if( callback( word, index, stuBadWords[ 'emoji' ][ regexString ], replacements, 'emoji' ) EQ false ){
                     break;
                 }
             } else {
@@ -63,7 +65,8 @@ component accessors="true" {
             var arrRegMatches = reMatchNoCase( regexString, jopinedText );
             for( var index = 1; index <= arrayLen( arrRegMatches ); index++ ){
                 var word = arrRegMatches[ index ];
-                if( callback( word, index, stuBadWords[ 'regex' ][ regexString ], 'regex' ) EQ false ){
+                var replacements = ( structKeyExists( stuBadWords[ 'replacements' ], word ) ) ? stuBadWords[ 'replacements' ][ word ] : [];
+                if( callback( word, index, stuBadWords[ 'regex' ][ regexString ], replacements, 'regex' ) EQ false ){
                     break;
                 }
             }
@@ -130,6 +133,40 @@ component accessors="true" {
         var censored = arguments.text;
         this.scan( arguments.text, function( word, index, categories ){
             censored = replaceNoCase( censored, word, reReplaceNoCase( word, '[a-z]', '*', 'all' ) );
+        } );
+        return censored;
+    }
+
+    /**
+     * Replaces any profanity within `text` with a given replacement, if one exists in the library. If not, it will be replaced with asterisks
+     *
+     * @param string text
+     * @returns string
+     */
+    public string function sugarcoat( required string text ){
+        var censored = arguments.text;
+        this.scan( arguments.text, function( word, index, categories, replacements ){
+            if( arrayLen( replacements ) ){
+                var repIndex = ( arrayLen( replacements ) > 1 ) ? randRange( 1, arrayLen( replacements ) ) : 1;
+                var replacement = replacements[ repIndex ];
+            } else {
+                var replacement = reReplaceNoCase( word, '[a-z]', '*', 'all' );
+            }
+            censored = replaceNoCase( censored, word, replacement );
+        } );
+        return censored;
+    }
+
+    /**
+     * Replaces any profanity within `text` with the word `unicorn`
+     *
+     * @param string text
+     * @returns string
+     */
+    public string function unicorn( required string text ){
+        var censored = arguments.text;
+        this.scan( arguments.text, function( word, index, categories ){
+            censored = replaceNoCase( censored, word, 'unicorn' );
         } );
         return censored;
     }
