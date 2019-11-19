@@ -5,42 +5,42 @@
 Profanity detection and filtering library for CFML applications
 
 ## Installation
-
-    box install swearjar
-
+```js
+box install swearjar
+```
 ## Usage
 
 Instantiate the component:
-
-    swearJar = new swearjar();
-
+```js
+swearJar = new swearjar();
+```
 ### swearjar.profane(text)
 
 Returns true if the given string contains profanity.
-
-    swearJar.profane( 'hello there' ); // false
-    swearJar.profane( 'hello mother f-bomb' ); // true
-
+```js
+swearJar.profane( 'hello there' ); // false
+swearJar.profane( 'hello mother f-bomb' ); // true
+```
 ### swearjar.censor(text)
 
 Replaces profanity with asterisks.
-
-    var clean = swearjar.censor( 'f-bomb you' ); // **** you
-
+```js
+var clean = swearjar.censor( 'f-bomb you' ); // **** you
+```
 ### swearjar.words(text)
 
 Get the words alongside their categories.
-
-    swearjar.words( 'fuck you john doe' ); // { fuck: ['sexual'] }
-    
+```js
+swearjar.words( 'fuck you john doe' ); // { fuck: ['sexual'] }
+```
 ### swearjar.detailedProfane(text)
 
 Get the words alongside their categories, count and a censored version of the text.
-
-    swearjar.detailedProfane( 'fuck you john doe' );
-
-returns:    
+```js
+swearjar.detailedProfane( 'fuck you john doe' );
 ```
+returns:    
+```js
 {
   categoryCount: {
     sexual: 1
@@ -61,38 +61,38 @@ returns:
 ### swearjar.scorecard(text)
 
 Generates a report from the given text.
-
-    swearjar.scorecard( 'f-bomb you' ); // {sexual: 1, inappropriate: 1}
-
+```js
+swearjar.scorecard( 'f-bomb you' ); // {sexual: 1, inappropriate: 1}
+```
 ### swearjar.addRegex(text)
 
 Add a regex.
-
-    swearjar.addRegex( 'addedword?\\b', ['detected'] );
-
+```js
+swearjar.addRegex( 'addedword?\\b', ['detected'] );
+```
 ### swearjar.addSimple(text)
 
 Add a simple word.
-
-    swearjar.addSimple( 'addedword', ['detected'] );
-
+```js
+swearjar.addSimple( 'addedword', ['detected'] );
+```
 ### swearjar.addEmoji(text)
 
 Add an emoji word.
-
-    swearjar.addEmoji( '1f596', ['detected'] );
-
+```js
+swearjar.addEmoji( '1f596', ['detected'] );
+```
 ### swearjar.loadBadWords(path)
 
 Loads a dictionary of words to be used as filter.
 
 NOTE: A US English default list located in the config directory is included and loaded by default.
-
-    swearjar.loadBadWords( './config/profanity.json' );
-
+```js
+swearjar.loadBadWords( './config/profanity.json' );
+```
 A dictionary is just a plain JSON file containing an object where its keys are the words to check for and the values are arrays of categories where the words fall in.
 
-```
+```js
 {
   "regex": {
     "\\w*fuck\\w*": [
