@@ -5,9 +5,29 @@
 Profanity detection and filtering library for CFML applications
 
 ## Installation
+
+This component can be installed as standalone or as a ColdBox Module. Either approach requires a simple CommandBox command:
+
 ```js
 box install swearjar
 ```
+
+### ColdBox Module
+This package is also a ColdBox module. The module can be configured by creating a `swearjar` configuration structure in your application configuration file (`config/Coldbox.cfc`) with the following settings:
+
+```js
+swearjar = {
+     libraryFilePath = '' // The path to your chosen profanity library JSON file
+};
+```
+You can optionally leave this configuration out and `swearjar` will use the default `en_US.json` file.
+
+Then you can inject the CFC via Wirebox:
+
+```js
+property name="monkehTweet" inject="monkehTweet@MonkehTweet";
+```
+
 ## Usage
 
 Instantiate the component:

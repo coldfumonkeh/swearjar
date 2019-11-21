@@ -24,19 +24,43 @@ component {
 	/**
 	 * Configure
 	 */
-	function configure(){}
+	function configure(){
+        // Settings
+        settings = {
+            libraryFilePath = './config/en_US.json'
+        }
+    }
 
 	/**
 	* Fired when the module is registered and activated.
 	*/
 	function onLoad(){
+        parseParentSettings();
+        var swearjarSettings = controller.getConfigSettings().swearjar;
 		// Map Library
-		binder.map( "swearjar@swearjar" ).to( "#moduleMapping#.swearjar" );
+        binder.map( "swearjar@swearjar" )
+            .to( "#moduleMapping#.swearjar" )
+            .initArg( name="libraryFilePath", value=swearjarSettings.libraryFilePath );
 	}
 
 	/**
 	* Fired when the module is unregistered and unloaded
 	*/
-	function onUnload(){}
+    function onUnload(){}
+    
+    /**
+	* parse parent settings
+	*/
+	private function parseParentSettings(){
+		var oConfig      = controller.getSetting( "ColdBoxConfig" );
+		var configStruct = controller.getConfigSettings();
+		var swearjarDSL  = oConfig.getPropertyMixin( "swearjar", "variables", structnew() );
+
+		//defaults
+		configStruct.swearjar = variables.settings;
+
+		// incorporate settings
+		structAppend( configStruct.swearjar, swearjarDSL, true );
+	}
 
 }
