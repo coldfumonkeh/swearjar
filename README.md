@@ -25,7 +25,7 @@ You can optionally leave this configuration out and `swearjar` will use the defa
 Then you can inject the CFC via Wirebox:
 
 ```js
-property name="monkehTweet" inject="monkehTweet@MonkehTweet";
+property name="swearjar" inject="swearjar@swearjar";
 ```
 
 ## Usage
