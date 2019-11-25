@@ -13,13 +13,12 @@ component {
 	this.description 		= "A CFML profanity detection and filtering component library";
 	this.version			= "@version.number@+@build.number@";
 	// If true, looks for views in the parent first, if not found, then in the module. Else vice-versa
-	this.viewParentLookup 	= true;
+	this.viewParentLookup 	= false;
 	// If true, looks for layouts in the parent first, if not found, then in module. Else vice-versa
-	this.layoutParentLookup = true;
-	this.entryPoint			= 'swearjar';
+	this.layoutParentLookup = false;
 	this.modelNamespace		= 'swearjar';
 	this.cfmapping			= 'swearjar';
-	this.autoMapModels 		= false;
+	this.autoMapModels 		= true;
 
 	/**
 	 * Configure
@@ -39,7 +38,6 @@ component {
         var swearjarSettings = controller.getConfigSettings().swearjar;
 		// Map Library
         binder.map( "swearjar@swearjar" )
-            .to( "#moduleMapping#.swearjar" )
             .initArg( name="libraryFilePath", value=swearjarSettings.libraryFilePath );
 	}
 
