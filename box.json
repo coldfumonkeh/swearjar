@@ -31,7 +31,7 @@
             "URL":""
         }
     ],
-    "location":"coldfumonkeh/swearjar#v1.4.0",
+    "location":"coldfumonkeh/swearjar#vbump",
     "name":"swearjar",
     "private":false,
     "projectURL":"",
@@ -66,5 +66,5 @@
         "watchPaths":"**.cfc"
     },
     "type":"modules",
-    "version":"1.4.0"
+    "version":"bump"
 }
