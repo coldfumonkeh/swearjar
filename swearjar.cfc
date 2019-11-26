@@ -36,6 +36,7 @@ component accessors="true" {
 	 */
     private void function scan(
         required string text,
+        string cssClass = '',
         required any callback
     ){
         var stuBadWords  = getBadWords();
@@ -47,7 +48,7 @@ component accessors="true" {
             var key  = lcase( word );
             if( structKeyExists( stuBadWords[ 'simple' ], key ) && isArray( stuBadWords[ 'simple' ][ key ] ) ){
                 var replacements = ( structKeyExists( stuBadWords[ 'replacements' ], key ) ) ? stuBadWords[ 'replacements' ][ key ] : [];
-                if( callback( word, index, stuBadWords[ 'simple' ][ key ], replacements, 'simple' ) EQ false ){
+                if( callback( word, index, stuBadWords[ 'simple' ][ key ], replacements, arguments.cssClass, 'simple' ) EQ false ){
                     break;
                 }
             } else if( structKeyExists( stuBadWords[ 'emoji' ], key ) && isArray( stuBadWords[ 'emoji' ][ key ] ) ){
@@ -81,7 +82,7 @@ component accessors="true" {
 	 */
     public boolean function profane( required string text ){
         var profane = false;
-        this.scan( arguments.text, function( word, index, categories ){
+        this.scan( text = arguments.text, callback = function( word, index, categories ){
             profane = true;
             return false; // stop on first match
         } );
@@ -96,7 +97,7 @@ component accessors="true" {
 	 */
     public struct function scorecard( required string text ){
         var scorecard = {};
-        this.scan( arguments.text, function( word, index, categories ){
+        this.scan( text = arguments.text, callback = function( word, index, categories ){
             for( var i = 1; i <= arrayLen( arguments.categories ); i++ ){
                 var cat = arguments.categories[ i ];
                 if( structKeyExists( scorecard, cat ) ){
@@ -117,7 +118,7 @@ component accessors="true" {
      */
     public struct function words( required string text ){
         var words = {};
-        this.scan( arguments.text, function( word, index, categories ){
+        this.scan( text = arguments.text, callback = function( word, index, categories ){
             words[ arguments.word ] = arguments.categories;
         } );
         return words;
@@ -131,7 +132,7 @@ component accessors="true" {
      */
     public string function censor( required string text ){
         var censored = arguments.text;
-        this.scan( arguments.text, function( word, index, categories ){
+        this.scan( text = arguments.text, callback = function( word, index, categories ){
             censored = replaceNoCase( censored, word, reReplaceNoCase( word, '[a-z]', '*', 'all' ) );
         } );
         return censored;
@@ -143,12 +144,15 @@ component accessors="true" {
      * @param string text
      * @returns string
      */
-    public string function sugarcoat( required string text ){
+    public string function sugarcoat(
+        required string text,
+        string cssClass = 'swearjar-sugarcoat'
+    ){
         var censored = arguments.text;
-        this.scan( arguments.text, function( word, index, categories, replacements ){
+        this.scan( text = arguments.text, cssClass = arguments.cssClass, callback = function( word, index, categories, replacements, cssClass ){
             if( arrayLen( replacements ) ){
                 var repIndex = ( arrayLen( replacements ) > 1 ) ? randRange( 1, arrayLen( replacements ) ) : 1;
-                var replacement = replacements[ repIndex ];
+                var replacement = '<span class="#cssClass#">#replacements[ repIndex ]#</span>';
             } else {
                 var replacement = reReplaceNoCase( word, '[a-z]', '*', 'all' );
             }
@@ -165,7 +169,7 @@ component accessors="true" {
      */
     public string function unicorn( required string text ){
         var censored = arguments.text;
-        this.scan( arguments.text, function( word, index, categories ){
+        this.scan( text = arguments.text, callback = function( word, index, categories ){
             censored = replaceNoCase( censored, word, 'unicorn' );
         } );
         return censored;
@@ -183,7 +187,7 @@ component accessors="true" {
         var words         = {};
         var categoryCount = {};
         var wordCount     = {};
-        this.scan( arguments.text, function( word, index, categories ){
+        this.scan( text = arguments.text, callback = function( word, index, categories ){
             profane = true;
             words[ arguments.word ] = arguments.categories;
             censored = replaceNoCase( censored, arguments.word, reReplaceNoCase( arguments.word, '[a-z]', '*', 'all' ) );

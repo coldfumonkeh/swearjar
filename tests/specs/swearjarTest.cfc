@@ -100,7 +100,15 @@ component extends="testbox.system.BaseSpec"{
                         var resultOne = variables.swearjar.sugarcoat( 'Your life is like poor pornography' );
                         expect( resultOne )
                             .toBeString()
-                            .toBe( 'Your life is like poor erotic literature' );
+                            .toBe( 'Your life is like poor <span class="swearjar-sugarcoat">erotic literature</span>' );
+
+                        var reaultTwo = variables.swearjar.sugarcoat(
+                            text     = 'Your life is like poor pornography',
+                            cssClass = 'dummy-class'
+                        );
+                        expect( reaultTwo )
+                            .toBeString()
+                            .toBe( 'Your life is like poor <span class="dummy-class">erotic literature</span>' );
 
                     } );
 
