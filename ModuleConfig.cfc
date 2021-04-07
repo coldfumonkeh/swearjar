@@ -38,6 +38,7 @@ component {
         var swearjarSettings = controller.getConfigSettings().swearjar;
 		// Map Library
         binder.map( "swearjar@swearjar" )
+	    .to( "#moduleMapping#.swearjar" )
             .initArg( name="libraryFilePath", value=swearjarSettings.libraryFilePath );
 	}
 
