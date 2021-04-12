@@ -3,7 +3,7 @@
  * Author: Matt Gifford (matt@monkehworks.com)
  * Purpose: A CFML profanity detection and filtering component library
  */
-component accessors="true" {
+component accessors="true" singleton {
 
     property name="badWords" type="struct";
 

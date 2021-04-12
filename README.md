@@ -16,8 +16,10 @@ box install swearjar
 This package is also a ColdBox module. The module can be configured by creating a `swearjar` configuration structure in your application configuration file (`config/Coldbox.cfc`) with the following settings:
 
 ```js
-swearjar = {
+moduleSettings = {
+  swearjar = {
      libraryFilePath = '' // The path to your chosen profanity library JSON file
+  }
 };
 ```
 You can optionally leave this configuration out and `swearjar` will use the default `en_US.json` file.
