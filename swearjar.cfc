@@ -86,7 +86,7 @@ component accessors="true" singleton {
 	 */
     public boolean function profane( required string text ){
         var profane = false;
-        this.scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
+        scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
             profane = true;
             return false; // stop on first match
         } );
@@ -101,7 +101,7 @@ component accessors="true" singleton {
 	 */
     public struct function scorecard( required string text ){
         var scorecard = {};
-        this.scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
+        scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
             for( var i = 1; i <= arrayLen( arguments.categories ); i++ ){
                 var cat = arguments.categories[ i ];
                 if( structKeyExists( scorecard, cat ) ){
@@ -122,7 +122,7 @@ component accessors="true" singleton {
      */
     public struct function words( required string text ){
         var words = {};
-        this.scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
+        scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
             words[ arguments.word ] = arguments.categories;
         } );
         return words;
@@ -136,7 +136,7 @@ component accessors="true" singleton {
      */
     public string function censor( required string text ){
         var censored = stripUnsafeSpace(arguments.text);
-        this.scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
+        scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
             censored = replaceNoCase( censored, word, reReplaceNoCase( word, '[a-z]', '*', 'all' ) );
         } );
         return censored;
@@ -153,7 +153,7 @@ component accessors="true" singleton {
         string cssClass = 'swearjar-sugarcoat'
     ){
         var censored = stripUnsafeSpace(arguments.text);
-        this.scan( text = stripUnsafeSpace(arguments.text), cssClass = arguments.cssClass, callback = function( word, index, categories, replacements, cssClass ){
+        scan( text = stripUnsafeSpace(arguments.text), cssClass = arguments.cssClass, callback = function( word, index, categories, replacements, cssClass ){
             if( arrayLen( replacements ) ){
                 var repIndex = ( arrayLen( replacements ) > 1 ) ? randRange( 1, arrayLen( replacements ) ) : 1;
                 var replacement = '<span class="#cssClass#">#replacements[ repIndex ]#</span>';
@@ -173,7 +173,7 @@ component accessors="true" singleton {
      */
     public string function unicorn( required string text ){
         var censored = stripUnsafeSpace(arguments.text);
-        this.scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
+        scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
             censored = replaceNoCase( censored, word, 'unicorn' );
         } );
         return censored;
@@ -191,7 +191,7 @@ component accessors="true" singleton {
         var words         = {};
         var categoryCount = {};
         var wordCount     = {};
-        this.scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
+        scan( text = stripUnsafeSpace(arguments.text), callback = function( word, index, categories ){
             profane = true;
             words[ arguments.word ] = arguments.categories;
             censored = replaceNoCase( censored, arguments.word, reReplaceNoCase( arguments.word, '[a-z]', '*', 'all' ) );
